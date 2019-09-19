@@ -1,0 +1,119 @@
+﻿@model IEnumerable<PcReparatie_MK_2.Models.Reparaty>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<head>
+</head>
+<h2>Index</h2>
+
+<g
+<p>
+    @Html.ActionLink("Nieuwe reparatie", "OrderCreate")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            In Afwachting
+        </th>
+        <th>
+            In Behandeling
+        </th>
+        <th>
+            Wachten op onderdelen
+        </th>
+        <th>
+            Klaar
+        </th>
+    </tr>
+    <tr>
+        @{
+            var inAfwachting = 0;
+            var inProcess = 0;
+            var waitingParts = 0;
+            var done = 0;
+            foreach (var item in Model)
+            {
+                switch (item.Status)
+                {
+                    case "In afwachting":
+                        inAfwachting++;
+                        break;
+                    case "In behandeling":
+                        inProcess++;
+                        break;
+                    case "Wachten op onderdelen":
+                        waitingParts++;
+                        break;
+                    case "Klaar":
+                        done++;
+                        break;
+                }
+            }
+            <td>
+                @inAfwachting.ToString()
+            </td>
+            <td>
+                @inProcess.ToString()
+            </td>
+            <td>
+                @waitingParts.ToString()
+            </td>
+            <td>
+                @done.ToString()
+            </td>
+        }
+
+    </tr>
+</table>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Titel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Beschrijving)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDatum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDatum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Titel)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Beschrijving)
+    </td>
+    <td class="@item.OutOfTime">
+            @Html.DisplayFor(modelItem => item.StartDatum)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.EndDatum)
+    </td>
+    <td class="@item.StatusKleur">
+            @Html.DisplayFor(modelItem => item.Status)
+    </td>
+
+    <td>
+        @Html.ActionLink("Edit", "OrderEdit", new { id = item.Id }) |
+        @Html.ActionLink("Details", "OrderDetails", new { id = item.Id }) |
+        @Html.ActionLink("Delete", "OrderDelete", new { id = item.Id })
+    </td>
+</tr>
+}
+
+</table>

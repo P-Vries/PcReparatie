@@ -1,0 +1,184 @@
+﻿@model PcReparatie_MK_2.Models.Reparaty
+
+@{
+    ViewBag.Title = "OrderEdit";
+}
+
+<h2>OrderEdit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>Reparaty</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Titel, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Titel, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Titel, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Beschrijving, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Beschrijving, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Beschrijving, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.StartDatum, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.StartDatum, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.StartDatum, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EndDatum, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EndDatum, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EndDatum, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @{
+                List<SelectListItem> listItems = new List<SelectListItem>();
+                listItems.Add(new SelectListItem
+                {
+                    Text = "In afwachting",
+                    Value = "In afwachting",
+                    Selected = true
+                });
+                listItems.Add(new SelectListItem
+                {
+                    Text = "In behandeling",
+                    Value = "In behandeling",
+                });
+                listItems.Add(new SelectListItem
+                {
+                    Text = "Wachten op onderdelen",
+                    Value = "Wachten op onderdelen",
+                });
+                listItems.Add(new SelectListItem
+                {
+                    Text = "Klaar",
+                    Value = "Klaar",
+                });
+            }
+            @Html.DropDownListFor(model => model.Status, listItems, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Procedure, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Procedure, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Procedure, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Arbeidsloon, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text" class="form-control" name="ArbeidsLoonbox" value="@Model.Arbeidsloon.ToString()" onkeypress='validate(event)'/>
+            @Html.ValidationMessageFor(model => model.Arbeidsloon, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Oderdelen", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <table class="table">
+                <tr>
+                    <th>
+                        Onderdeel Naam
+                    </th>
+                    <th>
+                        Onderdeel Prijs
+                    </th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model.Gebruikts)
+                {
+                    <tr>
+                        <td> @item.NaamOnderdeel</td>
+                        <td> @item.PrijsOnderdeel</td>
+                        <td>@Html.ActionLink("Delete", "OrderDelete", new { id = item.Id })</td>
+                    </tr>
+
+                }
+            </table>
+            @Html.ActionLink("Nieuw onderdeel", "OnderdeelCreate", new { id = Model.Id })
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Medewerker, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @{
+                var tempDB = new PcReparatie_MK_2.Models.DataBase();
+                <select class="form-control" name="MedewerkeridEdit">
+                    @{
+                        foreach (var item in tempDB.Medewerkers)
+                        {
+                            <option value=@item.Id.ToString() customAttribute="item.SomethingSpecial">
+                                @item.VoorNaam @item.AchterNaam
+                            </option>
+                        }
+                    }
+                </select>
+                Html.ValidationMessageFor(model => model.KlantID, "", new { @class = "text-danger" });
+            }
+            @Html.ActionLink("Nieuwe medewerker", "MedewerkerCreate", "Home")
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script>
+    function validate(evt) {
+  var theEvent = evt || window.event;
+
+  // Handle paste
+  if (theEvent.type === 'paste') {
+      key = event.clipboardData.getData('text/plain');
+  } else {
+  // Handle key press
+      var key = theEvent.keyCode || theEvent.which;
+      key = String.fromCharCode(key);
+  }
+  var regex = /[0-9]|\./;
+  if( !regex.test(key) ) {
+    theEvent.returnValue = false;
+    if(theEvent.preventDefault) theEvent.preventDefault();
+  }
+}
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

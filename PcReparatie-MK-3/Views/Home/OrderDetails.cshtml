@@ -1,0 +1,121 @@
+﻿@model PcReparatie_MK_2.Models.Reparaty
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>@Model.Titel</h4>
+    <dl class="dl-horizontal">
+        <dt>
+            Klant:
+        </dt>
+
+        <dd>
+            @Model.Klanten.VoorNaam @if (Model.Klanten.TussenVoegsel != "")
+            {@Model.Klanten.TussenVoegsel;
+        } @Model.Klanten.AchterNaam
+    </dd>
+
+    <dt>
+        Medewerker:
+    </dt>
+
+    <dd>
+        @Model.Medewerker.VoorNaam @if (Model.Medewerker.TussenVoegsel != "")
+        {@Model.Medewerker.TussenVoegsel;
+    } @Model.Medewerker.AchterNaam
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Titel)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Titel)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.StartDatum)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.StartDatum)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.EndDatum)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.EndDatum)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Status)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Status)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Beschrijving)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Beschrijving)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Procedure)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Procedure)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Arbeidsloon)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Arbeidsloon)
+    </dd>
+    <dt>
+        Onderdelen:
+    </dt>
+    <dd>
+        <table class="table">
+            <tr>
+                <th>
+                    Onderdeel Naam
+                </th>
+                <th>
+                    Onderdeel Prijs
+                </th>
+            </tr>
+            @foreach (var item in Model.Gebruikts)
+            {
+                <tr>
+                    <td> @item.NaamOnderdeel</td>
+                    <td> @item.PrijsOnderdeel</td>
+                </tr>
+
+            }
+        </table>
+    </dd>
+    <dt>
+        Totaalprijs:
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.TotaalPrijs)
+    </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "OrderEdit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
