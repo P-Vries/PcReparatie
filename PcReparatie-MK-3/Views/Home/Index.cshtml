@@ -73,19 +73,22 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Titel)
+            @Html.ActionLink("Titel", "Index", new { sortParams = "Titel" })
+        </th>
+        <th>
+            @Html.ActionLink("Klant", "Index", new { sortParams = "Klant" })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Beschrijving)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.StartDatum)
+            @Html.ActionLink("StartDatum", "Index", new { sortParams = "Datum" })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.EndDatum)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Status)
+            @Html.ActionLink("Status", "Index", new { sortParams = "Status" })
         </th>
         <th></th>
     </tr>
@@ -96,16 +99,19 @@
         @Html.DisplayFor(modelItem => item.Titel)
     </td>
     <td>
+        @Html.DisplayFor(modelItem => item.Klanten.VolledigeNaam)
+    </td>
+    <td>
         @Html.DisplayFor(modelItem => item.Beschrijving)
     </td>
     <td class="@item.OutOfTime">
-            @Html.DisplayFor(modelItem => item.StartDatum)
+        @Html.DisplayFor(modelItem => item.StartDatum)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.EndDatum)
     </td>
     <td class="@item.StatusKleur">
-            @Html.DisplayFor(modelItem => item.Status)
+        @Html.DisplayFor(modelItem => item.Status)
     </td>
 
     <td>

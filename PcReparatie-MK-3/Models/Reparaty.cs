@@ -3,6 +3,7 @@ namespace PcReparatie_MK_2.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Drawing;
 
     public partial class Reparaty
@@ -48,9 +49,9 @@ namespace PcReparatie_MK_2.Models
         public virtual Klanten Klanten { get; set; }
 
         public virtual Medewerker Medewerker { get; set; }
-
+        [NotMapped]
         public string OutOfTime { get { return outOfTime = (StartDatum.Date < DateTime.Now.Date ? "OutOfTime" : "DefaultTime"); } }
-
+        [NotMapped]
         public decimal? TotaalPrijs { get{
                 decimal? tempPrijs = 0;
                 DataBase tempdb = new DataBase();
@@ -64,7 +65,7 @@ namespace PcReparatie_MK_2.Models
                 tempPrijs = tempPrijs + this.Arbeidsloon;
                 return tempPrijs;
             } }
-
+        [NotMapped]
         public string StatusKleur { get {
                 string Class = "Awaiting";
                 switch (this.Status)

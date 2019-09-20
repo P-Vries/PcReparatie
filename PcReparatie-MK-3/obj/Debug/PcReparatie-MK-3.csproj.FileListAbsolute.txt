@@ -77,3 +77,4 @@ D:\ITVitae\C#\PcReparatie-MK-3\PcReparatie-MK-3\PcReparatie-MK-3\obj\Debug\PcRep
 D:\ITVitae\C#\PcReparatie-MK-3\PcReparatie-MK-3\PcReparatie-MK-3\obj\Debug\PcReparatie-MK-3.csproj.CopyComplete
 D:\ITVitae\C#\PcReparatie-MK-3\PcReparatie-MK-3\PcReparatie-MK-3\obj\Debug\PcReparatie-MK-3.dll
 D:\ITVitae\C#\PcReparatie-MK-3\PcReparatie-MK-3\PcReparatie-MK-3\obj\Debug\PcReparatie-MK-3.pdb
+D:\ITVitae\C#\PcReparatie-MK-3\PcReparatie-MK-3\PcReparatie-MK-3\obj\Debug\PcReparatie-MK-3.csprojAssemblyReference.cache

@@ -15,7 +15,34 @@ namespace PcReparatie_MK_2.Controllers
             return View(reparaties);
         }
 
-        public ActionResult OrderEdit(int id)
+        [HttpGet]
+        public ActionResult Index(string sortParams)
+        {
+            IEnumerable<Reparaty> reparaties = db.Reparaties.AsEnumerable<Reparaty>();
+            switch (sortParams)
+            {
+                case "Titel":
+                    reparaties = reparaties.OrderBy(reparatie => reparatie.Titel);
+                    break;
+                case "Klant":
+                    reparaties = reparaties.OrderBy(reparatie => reparatie.Klanten.AchterNaam);
+                    break;
+                case "Datum":
+                    reparaties = reparaties.OrderBy(reparatie => reparatie.StartDatum);
+                    break;
+                case "Status":
+                    reparaties = reparaties.OrderBy(
+                        reparatie => reparatie.Status == "In afwachting" ? 1:
+                        reparatie.Status == "In behandeling"? 2:
+                        reparatie.Status == "Wachten op onderdelen"? 3:4) ;
+                    break;
+            }
+
+
+            return View(reparaties);
+        }
+
+        public ActionResult OrderEdit(int? id)
         {
             Reparaty tempReparatie = db.Reparaties.Where(e => e.Id == id).FirstOrDefault();
             return View(tempReparatie);
@@ -137,4 +164,5 @@ namespace PcReparatie_MK_2.Controllers
             return RedirectToAction("OrderEdit", "Home", new { id = tempOnderdeel.ReparatieId });
         }
     }
+    
 }
