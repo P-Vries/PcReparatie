@@ -27,8 +27,14 @@ namespace PcReparatie_MK_2.Controllers
                 case "Klant":
                     reparaties = reparaties.OrderBy(reparatie => reparatie.Klanten.AchterNaam);
                     break;
-                case "Datum":
+                case "Beschrijving":
+                    reparaties = reparaties.OrderBy(reparatie => reparatie.Beschrijving);
+                    break;
+                case "StartDatum":
                     reparaties = reparaties.OrderBy(reparatie => reparatie.StartDatum);
+                    break;
+                case "EindDatum":
+                    reparaties = reparaties.OrderBy(reparatie => reparatie.EndDatum);
                     break;
                 case "Status":
                     reparaties = reparaties.OrderBy(

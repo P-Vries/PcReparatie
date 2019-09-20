@@ -31,6 +31,6 @@ namespace PcReparatie_MK_2.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reparaty> Reparaties { get; set; }
         [NotMapped]
-        public string VolledigeNaam { get { return $"{VoorNaam} {AchterNaam}"; } }
+        public string VolledigeNaam { get { return $"{AchterNaam} {VoorNaam}"; } }
     }
 }

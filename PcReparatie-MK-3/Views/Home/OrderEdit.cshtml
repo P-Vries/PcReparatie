@@ -36,7 +36,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.StartDatum, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.StartDatum, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.StartDatum, new { htmlAttributes = new { @class = "form-control" }})
             @Html.ValidationMessageFor(model => model.StartDatum, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -115,7 +115,7 @@
                     <tr>
                         <td> @item.NaamOnderdeel</td>
                         <td> @item.PrijsOnderdeel</td>
-                        <td>@Html.ActionLink("Delete", "OrderDelete", new { id = item.Id })</td>
+                        <td>@Html.ActionLink("Delete", "OnderdeelDelete", new { id = item.Id })</td>
                     </tr>
 
                 }

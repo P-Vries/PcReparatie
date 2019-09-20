@@ -52,15 +52,13 @@ namespace PcReparatie_MK_2.Models
         [NotMapped]
         public string OutOfTime { get { return outOfTime = (StartDatum.Date < DateTime.Now.Date ? "OutOfTime" : "DefaultTime"); } }
         [NotMapped]
+        [DisplayFormat(DataFormatString = "{0:c2}")]
         public decimal? TotaalPrijs { get{
                 decimal? tempPrijs = 0;
                 DataBase tempdb = new DataBase();
-                foreach (var item in tempdb.Gebruikts)
+                foreach (var item in this.Gebruikts)
                 {
-                    if(item.ReparatieId == this.Id)
-                    {
-                        tempPrijs = tempPrijs + item.PrijsOnderdeel;
-                    }
+                        tempPrijs = tempPrijs + item.PrijsOnderdeel;                  
                 }
                 tempPrijs = tempPrijs + this.Arbeidsloon;
                 return tempPrijs;
@@ -85,7 +83,7 @@ namespace PcReparatie_MK_2.Models
                 }
                 return Class;
             } }
-
+        
         private string outOfTime;
     }
 }

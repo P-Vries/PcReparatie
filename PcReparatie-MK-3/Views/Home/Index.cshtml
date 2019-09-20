@@ -9,8 +9,6 @@
 <head>
 </head>
 <h2>Index</h2>
-
-<g
 <p>
     @Html.ActionLink("Nieuwe reparatie", "OrderCreate")
 </p>
@@ -79,13 +77,13 @@
             @Html.ActionLink("Klant", "Index", new { sortParams = "Klant" })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Beschrijving)
+            @Html.ActionLink("Beschrijving", "Index", new { sortParams = "Beschrijving" })
         </th>
         <th>
-            @Html.ActionLink("StartDatum", "Index", new { sortParams = "Datum" })
+            @Html.ActionLink("Start-Datum", "Index", new { sortParams = "StartDatum" })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EndDatum)
+            @Html.ActionLink("Eind-Datum", "Index", new { sortParams = "EindDatum" })
         </th>
         <th>
             @Html.ActionLink("Status", "Index", new { sortParams = "Status" })
@@ -105,10 +103,10 @@
         @Html.DisplayFor(modelItem => item.Beschrijving)
     </td>
     <td class="@item.OutOfTime">
-        @Html.DisplayFor(modelItem => item.StartDatum)
+        @item.StartDatum.ToString("dd-MM-yyyy")
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.EndDatum)
+        @item.StartDatum.ToString("dd-MM-yyyy")
     </td>
     <td class="@item.StatusKleur">
         @Html.DisplayFor(modelItem => item.Status)
