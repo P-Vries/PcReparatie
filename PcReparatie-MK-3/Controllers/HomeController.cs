@@ -9,14 +9,14 @@ namespace PcReparatie_MK_2.Controllers
     public class HomeController : Controller
     {
         DataBase db = new DataBase();
-        public ActionResult Index()
+        public ActionResult Index()//Index geeft iEnum door aan view Default
         {
             IEnumerable<Reparaty> reparaties = db.Reparaties.AsEnumerable<Reparaty>();
             return View(reparaties);
         }
 
         [HttpGet]
-        public ActionResult Index(string sortParams)
+        public ActionResult Index(string sortParams)//Index die word aangeroepen bij sort returnt gesorteerde ienum naar index
         {
             IEnumerable<Reparaty> reparaties = db.Reparaties.AsEnumerable<Reparaty>();
             switch (sortParams)
@@ -48,19 +48,19 @@ namespace PcReparatie_MK_2.Controllers
             return View(reparaties);
         }
 
-        public ActionResult OrderEdit(int? id)
+        public ActionResult OrderEdit(int? id)//Order Edit edits order returnt 1 reparatie naar edit view
         {
             Reparaty tempReparatie = db.Reparaties.Where(e => e.Id == id).FirstOrDefault();
             return View(tempReparatie);
         }
 
-        public ActionResult OrderDetails(int id)
+        public ActionResult OrderDetails(int id)//Order Details returnt 1 reparatie naar detail view
         {
             Reparaty tempReparatie = db.Reparaties.Where(e => e.Id == id).FirstOrDefault();
             return View(tempReparatie);
         }
 
-        public ActionResult OrderDelete(int id)
+        public ActionResult OrderDelete(int id)//Order Delete returnt 1 reparatie naar delete view voor bevesteging
         {
             Reparaty tempReparatie = db.Reparaties.Where(e => e.Id == id).FirstOrDefault();
             return View(tempReparatie);
@@ -81,14 +81,14 @@ namespace PcReparatie_MK_2.Controllers
             return View();
         }
 
-        public ActionResult OnderdeelCreate(int id)
+        public ActionResult OnderdeelCreate(int id)//returnt een onderdeel met mee gegeven id komt altijd uit OrderEdit view
         {
             Gebruikt tempGebruikt = new Gebruikt();
             tempGebruikt.ReparatieId = id;
             return View(tempGebruikt);
         }
 
-        public ActionResult OnderdeelDelete(int id)
+        public ActionResult OnderdeelDelete(int id)//returnt een onderdeel met mee gegeven id komt altijd uit OrderEdit view voor verwijder bevesteging
         {
             Gebruikt tempOnderdeel = db.Gebruikts.Where(e => e.Id == id).FirstOrDefault();
             return View(tempOnderdeel);
@@ -97,9 +97,9 @@ namespace PcReparatie_MK_2.Controllers
         public ActionResult OrderEdit(Reparaty tempReparaty)
         {
             var entity = db.Reparaties.SingleOrDefault(Reparatie => Reparatie.Id == tempReparaty.Id);
-            tempReparaty.MedewerkerID = int.Parse(Request.Form["MedewerkeridEdit"]);
+            tempReparaty.MedewerkerID = int.Parse(Request.Form["MedewerkeridEdit"]);//Krijg medewerker id van OrderEdit view
             decimal tempLoon = 0;
-            bool success = decimal.TryParse(Request.Form["ArbeidsLoonbox"].Replace('.',','), out tempLoon);
+            bool success = decimal.TryParse(Request.Form["ArbeidsLoonbox"].Replace('.',','), out tempLoon);//Krijg loon van OrderEdit view
             entity.Arbeidsloon = success ? tempLoon : 0;
             entity.Beschrijving = tempReparaty.Beschrijving;
             entity.Gebruikts = tempReparaty.Gebruikts;
@@ -107,13 +107,13 @@ namespace PcReparatie_MK_2.Controllers
             entity.Status = tempReparaty.Status;
             entity.Titel = tempReparaty.Titel;
             entity.MedewerkerID = tempReparaty.MedewerkerID;
-            db.Entry(entity).State = EntityState.Modified;
+            db.Entry(entity).State = EntityState.Modified;//Zet entry state naar modified zodat de entry wordt geupdate
             db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public ActionResult OrderDelete(Reparaty tempReparaty)
+        public ActionResult OrderDelete(Reparaty tempReparaty)//Verwijder order uit lijst nadat bevesteging is gegeven
         {
             db.Reparaties.Remove(db.Reparaties.Where(e => e.Id == tempReparaty.Id).First());
             db.SaveChanges();
